@@ -27,7 +27,19 @@ export class ClassDirective {
   //Now everything is working just fine, all we have to do to make the developer's life easier is to give it a sensible name
   // like => [appClass] = "'red'", how to do this?
 
-  @Input('appClass') set backgroundColor(color: string) {
-    this.element.nativeElement.style.backgroundColor = color;
+  // @Input('appClass') set backgroundColor(color: string) {
+  //   this.element.nativeElement.style.backgroundColor = color;
+  // }
+
+  //Now, we will replace Angular's ngClass with our own appClass directive
+
+  @Input('appClass') set classNames(classObj: any) {
+    for (let key in classObj) {
+      if (classObj[key]) {
+        this.element.nativeElement.classList.add(key);
+      } else {
+        this.element.nativeElement.classList.remove(key);
+      }
+    }
   }
 }

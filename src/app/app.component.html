@@ -1,28 +1,34 @@
 <nav>
   <ul class="pagination">
     <li class="page-item"
-    [ngClass] = "{disabled: currentPage === 0}"
+    [appClass] = "{disabled: currentPage === 0}"
     >
       <a class="page-link" (click) = "currentPage = currentPage - 1">Prev</a>
     </li>
-  <ng-container *ngFor = "let image of images; let i = index">
-    <li class="page-item" [ngClass] = "{active: i === currentPage}"
+  <!-- <ng-container *ngFor = "let image of images; let i = index"> -->
+    <!-- using our own structural directive -->
+    <ng-container *appTimes = "images.length; let i = index">
+    <li class="page-item" [appClass] = "{active: i === currentPage}"
     *ngIf = "checkWindowIndex(i)">
       <a (click) = "currentPage = i" class="page-link">{{i+1}}</a>
     </li>
   </ng-container>
     <li class="page-item"
-    [ngClass] = "{disabled: currentPage === images.length -1}"
+    [appClass] = "{disabled: currentPage === images.length -1}"
     >
       <a class="page-link" (click) = "currentPage = currentPage + 1">Next</a>
     </li>
   </ul>
 </nav>
 
-<div class="img-container">
-  <h3 [appClass] = "'gray'">{{images[currentPage].title}}</h3>
-  <img [src] = "images[currentPage].url"/>
+<div>
+  <h3>{{images[currentPage].title}}</h3>
+  <img [src] = "images[currentPage].url" class="img-container"/>
 </div>
+
+<!-- <ul *appTimes="5">
+  <li>Hello There</li>
+</ul> -->
 
 <!-- [ngSwitch], *ngSwitchCase, *ngSwitchDefault -->
 
